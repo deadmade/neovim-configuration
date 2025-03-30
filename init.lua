@@ -7,8 +7,8 @@ require('nixCatsUtils').setup {
   non_nix_value = true,
 }
 
-require("general-config")
-require("keymaps")
+-- require("general-config")
+-- require("keymaps")
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
