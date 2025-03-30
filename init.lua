@@ -98,7 +98,7 @@ require("nixCatsUtils").setup {
   non_nix_value = true,
 }
 
-require("set");
+require("set")
 
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
