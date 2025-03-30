@@ -95,7 +95,7 @@ P.S. You can delete this when you're done too. It's your config now! :)
 -- usage of both this setup and the nixCats command is optional,
 -- but it is very useful for passing info from nix to lua so you will likely use it at least once.
 require('nixCatsUtils').setup {
-  non_nix_value = false,
+  non_nix_value = true,
 }
 
 -- Set <space> as the leader key
