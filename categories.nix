@@ -54,6 +54,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           #     lua
           #   ]
           # ))
+          vimtex
         ];
         kickstart-debug = [
           nvim-dap
