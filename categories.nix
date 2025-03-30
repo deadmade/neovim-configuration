@@ -1,16 +1,7 @@
-    # see :help nixCats.flake.outputs.categories
-    # and
-    # :help nixCats.flake.outputs.categoryDefinitions.scheme
-    categoryDefinitions = { pkgs, settings, categories, extra, name, mkPlugin, ... }@packageDef: {
-      # to define and use a new category, simply add a new list to a set here, 
-      # and later, you will include categoryname = true; in the set you
-      # provide when you build the package using this builder function.
-      # see :help nixCats.flake.outputs.packageDefinitions for info on that section.
+ inputs: let
+  inherit (inputs.nixCats) utils;
+in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
 
-      # lspsAndRuntimeDeps:
-      # this section is for dependencies that should be available
-      # at RUN TIME for plugins. Will be available to PATH within neovim terminal
-      # this includes LSPs
       lspsAndRuntimeDeps = with pkgs; {
         general = [
           universal-ctags
@@ -137,4 +128,5 @@
       extraLuaPackages = {
         test = [ (_:[]) ];
       };
-    };
+    }
+ 

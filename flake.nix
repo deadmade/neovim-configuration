@@ -33,7 +33,10 @@
   outputs = { self, nixpkgs, nixCats, ... }@inputs: let
     inherit (nixCats) utils;
     luaPath = "${./.}";
+        
     forEachSystem = utils.eachSystem nixpkgs.lib.platforms.all;
+        categoryDefinitions = import ./categories.nix inputs;
+    packageDefinitions = import ./packages.nix inputs;
     # the following extra_pkg_config contains any values
     # which you want to pass to the config set of nixpkgs
     # import nixpkgs { config = extra_pkg_config; inherit system; }

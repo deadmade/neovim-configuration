@@ -1,6 +1,6 @@
-{
-  # see :help nixCats.flake.outputs.packageDefinitions
-    packageDefinitions = {
+ inputs: let
+  inherit (inputs.nixCats) utils;
+  in {
       # These are the names of your packages
       # you can include as many as you wish.
       nvim = { pkgs , ... }: {
@@ -47,5 +47,4 @@
           };
         };
       };
-    };
-}
+    }
