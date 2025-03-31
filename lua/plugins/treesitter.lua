@@ -14,6 +14,7 @@ return { -- Highlight, edit, and navigate code
       --  If you are experiencing weird indenting issues, add the language to
       --  the list of additional_vim_regex_highlighting and disabled languages for indent.
       additional_vim_regex_highlighting = { 'ruby' },
+      disable = { 'latex' }, -- Remove this if you want to use vim regex highlighting for Ruby
     },
     indent = { enable = true, disable = { 'ruby' } },
   },
