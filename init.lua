@@ -53,8 +53,8 @@ local lazyOptions = {
 require('nixCatsUtils.lazyCat').setup(nixCats.pawsible({"allPlugins", "start", "lazy.nvim" }),
 {
 
-require 'plugins.vim-sleuth',
-require 'plugins.comment',
+--require 'plugins.vim-sleuth',
+--require 'plugins.comment',
 
 -- See `:help gitsigns` to understand what the configuration keys do
 { -- Adds git related signs to the gutter, as well as utilities for managing changes
@@ -70,14 +70,14 @@ require 'plugins.comment',
   },
 },
 
-require 'plugins.which-key',
-require 'plugins.telescope',
-require 'plugins.lsp',
-require 'plugins.autoformat',
-require 'plugins.autocompletion',
-require 'plugins.themes',
-require 'plugins.treesitter',
-require 'plugins.smalltools',
+--require 'plugins.which-key',
+--require 'plugins.telescope',
+--require 'plugins.lsp',
+--require 'plugins.autoformat',
+--require 'plugins.autocompletion',
+--require 'plugins.themes',
+--require 'plugins.treesitter',
+--require 'plugins.smalltools',
 require 'plugins.vimtex',
 
 -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
@@ -92,12 +92,12 @@ require 'plugins.vimtex',
 -- NOTE: nixCats: instead of uncommenting them, you can enable them
 -- from the categories set in your packageDefinitions in your flake or other template!
 -- This is because within them, we used nixCats to check if it should be loaded!
-require 'kickstart.plugins.debug',
-require 'kickstart.plugins.indent_line',
-require 'kickstart.plugins.lint',
-require 'kickstart.plugins.autopairs',
-require 'kickstart.plugins.neo-tree',
-require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+--require 'kickstart.plugins.debug',
+--require 'kickstart.plugins.indent_line',
+--require 'kickstart.plugins.lint',
+--require 'kickstart.plugins.autopairs',
+--require 'kickstart.plugins.neo-tree',
+--require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
 -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
 --    This is the easiest way to modularize your config.
