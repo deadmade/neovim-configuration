@@ -3,7 +3,7 @@ return {
   lazy = false,
   config = function()
     require("themery").setup({
-      themes = {"gruvbox", "ayu", "tokyonight", "catppuccin"}, -- Your list of installed colorschemes.
+      themes = { "tokyonight", "gruvbox", "ayu", "catppuccin", "kanagawa-lotus", "kanagawa-dragon"}, -- Your list of installed colorschemes.
       livePreview = true }) -- Apply theme while picking. Default to true.    
   end
 }
