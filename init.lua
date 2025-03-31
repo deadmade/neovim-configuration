@@ -71,7 +71,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible({"allPlugins", "start", "
 },
 
 --require 'plugins.which-key',
---require 'plugins.telescope',
+require 'plugins.telescope',
 --require 'plugins.lsp',
 --require 'plugins.autoformat',
 --require 'plugins.autocompletion',
