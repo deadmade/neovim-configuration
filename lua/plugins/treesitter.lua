@@ -1,5 +1,6 @@
 return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
+  event = { 'BufReadPre', 'BufNewFile' }, -- Load only when opening a file
   build = require('nixCatsUtils').lazyAdd(':TSUpdate'),
   opts = {
     -- NOTE: nixCats: use lazyAdd to only set these 2 options if nix wasnt involved.
