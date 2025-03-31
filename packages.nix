@@ -22,7 +22,7 @@
           test = true;
 
           kickstart-autopairs = true;
-          kickstart-neo-tree = true;
+          kickstart-neo-tree = false;
           kickstart-debug = true;
           kickstart-lint = true;
           kickstart-indent_line = true;
