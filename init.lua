@@ -5,6 +5,7 @@ require("nixCatsUtils").setup {
 require("general.set")
 require("general.keymaps")
 require("general.autocommands")
+require("current-theme")
 
 -- NOTE: nixCats: You might want to move the lazy-lock.json file
 local function getlockfilepath()
