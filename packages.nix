@@ -33,7 +33,7 @@
           kickstart-gitsigns = true;
 
           # we can pass whatever we want actually.
-          have_nerd_font = false;
+          have_nerd_font = true;
 
           example = {
             youCan = "add more than just booleans";
