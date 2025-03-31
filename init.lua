@@ -2,9 +2,9 @@ require("nixCatsUtils").setup {
   non_nix_value = true,
 }
 
-require("set")
-require("keymaps")
-require("autocommands")
+require("general.set")
+require("general.keymaps")
+require("general.autocommands")
 
 -- NOTE: nixCats: You might want to move the lazy-lock.json file
 local function getlockfilepath()
