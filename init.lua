@@ -75,7 +75,7 @@ require 'plugins.telescope',
 require 'plugins.lsp',
 require 'plugins.autoformat',
 require 'plugins.autocompletion',
-require 'plugins,themes',
+require 'plugins.themes',
 require 'plugins.treesitter',
 require 'plugins.smalltools',
 
