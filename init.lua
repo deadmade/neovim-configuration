@@ -75,7 +75,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible({"allPlugins", "start", "
 --require 'plugins.lsp',
 --require 'plugins.autoformat',
 --require 'plugins.autocompletion',
---require 'plugins.themes',
+require 'plugins.themes',
 --require 'plugins.treesitter',
 --require 'plugins.smalltools',
 require 'plugins.vimtex',
