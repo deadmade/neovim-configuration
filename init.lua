@@ -52,8 +52,8 @@ local lazyOptions = {
 -- argument, the path to lazy.nvim as downloaded by nix, or nil, before the normal arguments.
 require('nixCatsUtils.lazyCat').setup(nixCats.pawsible({"allPlugins", "start", "lazy.nvim" }),
 {
--- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+
+require 'plugins.vim-sleuth',
 
 -- NOTE: Plugins can also be added by using a table,
 -- with the first argument being the link and the following
