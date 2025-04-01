@@ -62,7 +62,7 @@ require 'plugins.lualine',
 
 --require 'plugins.which-key',
 require 'plugins.telescope',
---require 'plugins.lsp',
+require 'plugins.lsp',
 --require 'plugins.autoformat',
 --require 'plugins.autocompletion',
 require 'plugins.themes',
