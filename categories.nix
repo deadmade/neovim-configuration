@@ -81,7 +81,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           nvim-web-devicons
           plenary-nvim
         ];
-      }
+      };
 
       # not loaded automatically at startup.
       # use with packadd and an autocommand in config to achieve lazy loading
