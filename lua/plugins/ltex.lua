@@ -1,4 +1,5 @@
 return {
+    'vigoux/ltex-ls.nvim',
     require 'ltex-ls'.setup {
         use_spellfile = false,
         filetypes = { "latex", "tex", "bib", "markdown", "gitcommit", "text" },
