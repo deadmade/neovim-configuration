@@ -53,6 +53,7 @@ local lazyOptions = {
 require('nixCatsUtils.lazyCat').setup(nixCats.pawsible({"allPlugins", "start", "lazy.nvim" }),
 {
 
+require 'ltex.lua',
 --require 'plugins.vim-sleuth',
 --require 'plugins.comment',
 
@@ -65,6 +66,7 @@ require 'plugins.telescope',
 --require 'plugins.autoformat',
 --require 'plugins.autocompletion',
 require 'plugins.themes',
+
 require 'plugins.treesitter',
 --require 'plugins.smalltools',
 require 'plugins.vimtex',
