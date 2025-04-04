@@ -1,5 +1,6 @@
 return { -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
+  event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
     -- Automatically install LSPs and related tools to stdpath for Neovim
     {
@@ -181,7 +182,9 @@ return { -- LSP Configuration & Plugins
     -- NOTE: nixCats: there is help in nixCats for lsps at `:h nixCats.LSPs` and also `:h nixCats.luaUtils`
     local servers = {}
     servers.ltex = {}
-      -- servers.clangd = {},
+    servers.clangd = {}
+    servers.csharp_ls = {}
+    servers.lua_ls = {}
       -- servers.gopls = {},
       -- servers.pyright = {},
       -- servers.rust_analyzer = {},
