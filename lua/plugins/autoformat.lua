@@ -1,5 +1,6 @@
 return { -- Autoformat
 'stevearc/conform.nvim',
+event = { 'BufReadPre', 'BufNewFile' },
 lazy = false,
 keys = {
   {
