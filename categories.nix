@@ -13,6 +13,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           nixd
           stylua
           ltex-ls
+          cmp-nvim-lsp
         ];
         kickstart-debug = [
           delve
