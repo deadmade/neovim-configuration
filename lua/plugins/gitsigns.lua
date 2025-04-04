@@ -1,6 +1,9 @@
 return {
     'lewis6991/gitsigns.nvim',
     event = 'BufRead', -- Load only when opening a file
+    cond = function()
+        return vim.fn.isdirectory(vim.fn.getcwd() .. '/.git') == 1
+      end,
     config = function()
         require('gitsigns').setup {
             signs = {
