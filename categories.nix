@@ -12,6 +12,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           lua-language-server
           nixd
           stylua
+          ltex-ls
         ];
         kickstart-debug = [
           delve
