@@ -184,10 +184,9 @@ return { -- LSP Configuration & Plugins
     servers.ltex = {}
     servers.clangd = {}
     servers.csharp_ls = {}
-    servers.lua_ls = {}
-      -- servers.gopls = {},
-      -- servers.pyright = {},
-      -- servers.rust_analyzer = {},
+    servers.gopls = {}
+    servers.pyright = {}
+    servers.rust_analyzer = {}
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
       -- Some languages (like typescript) have entire language plugins that can be useful:
