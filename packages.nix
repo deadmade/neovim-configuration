@@ -47,8 +47,4 @@
           };
         };
       };
-
-    environment.systemPackages = with pkgs; [
-      zathura
-  ];
     }
