@@ -42,6 +42,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           nvim-cmp
           luasnip
           cmp_luasnip
+          cmp-nvim-lsp
           cmp-path
           tokyonight-nvim
           todo-comments-nvim
