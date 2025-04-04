@@ -138,10 +138,6 @@
     nixosModules.default = nixosModule;
     homeModules.default = homeModule;
 
-        environment.systemPackages = with pkgs; [
-      zathura
-  ];
-
     inherit utils nixosModule homeModule;
     inherit (utils) templates;
   });
