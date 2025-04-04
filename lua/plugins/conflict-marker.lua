@@ -1,0 +1,1 @@
+return {'rhysd/conflict-marker.vim'} -- Highlight conflict markers in git files

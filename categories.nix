@@ -56,6 +56,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           # ))
           vimtex
           lualine-nvim
+          conflict-marker-vim
         ];
         kickstart-debug = [
           nvim-dap
