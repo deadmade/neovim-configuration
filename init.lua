@@ -54,8 +54,8 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible({"allPlugins", "start", "
 {
 
 --require 'plugins.ltex',
---require 'plugins.vim-sleuth',
---require 'plugins.comment',
+require 'plugins.vim-sleuth',
+require 'plugins.comment',
 
 require 'plugins.gitsigns',
 require 'plugins.conflict-marker',
@@ -70,7 +70,7 @@ require 'plugins.lsp',
 require 'plugins.themes',
 
 --require 'plugins.treesitter',
---require 'plugins.smalltools',
+require 'plugins.smalltools',
 require 'plugins.vimtex',
 
 -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
