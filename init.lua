@@ -58,7 +58,9 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible({"allPlugins", "start", "
 --require 'plugins.comment',
 
 require 'plugins.gitsigns',
+require 'plugins.conflict-marker',
 require 'plugins.lualine',
+
 
 --require 'plugins.which-key',
 require 'plugins.telescope',
