@@ -1,7 +1,8 @@
 return {
     "epwalsh/obsidian.nvim",
-    version = "*",  -- recommended, use latest release instead of latest commit
+    version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
+    event = { 'BufReadPre', 'BufNewFile' },
     ft = "markdown",
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -43,9 +44,9 @@ return {
             },
         },
 
-        disable_frontmatter = true,  -- Disable metadata frontmatter
+        disable_frontmatter = true, -- Disable metadata frontmatter
         note_id_func = function(title)
-        -- Use the title as the filename instead of generating an ID
+            -- Use the title as the filename instead of generating an ID
             return title:gsub(" ", "_"):lower()
         end,
     },
