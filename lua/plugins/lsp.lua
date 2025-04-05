@@ -181,7 +181,21 @@ return { -- LSP Configuration & Plugins
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     -- NOTE: nixCats: there is help in nixCats for lsps at `:h nixCats.LSPs` and also `:h nixCats.luaUtils`
     local servers = {}
-    servers.ltex = {}
+    servers.ltex = {
+      filetypes = { 'markdown', 'text', 'tex'},
+      settings = {
+        ltex = {
+          language = 'de',
+          additionalLanguages = { 'en-US' },
+          setenceCacheSize = 2000,
+          additionalRules = {
+            enablePickyRules = true,
+            languageModel = 'n-gram',
+            motherTongue = 'de',
+          },
+        },
+      },
+    }
     servers.clangd = {}
     servers.csharp_ls = {}
     servers.gopls = {}
