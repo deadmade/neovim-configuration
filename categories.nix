@@ -13,6 +13,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           nixd
           stylua
           ltex-ls
+          marksman
         ];
         kickstart-debug = [
           delve
