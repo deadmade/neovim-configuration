@@ -196,11 +196,13 @@ return { -- LSP Configuration & Plugins
         },
       },
     }
+    
     servers.clangd = {}
     servers.csharp_ls = {}
     servers.gopls = {}
     servers.pyright = {}
     servers.rust_analyzer = {}
+    servers.marksman = {}
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
       -- Some languages (like typescript) have entire language plugins that can be useful:

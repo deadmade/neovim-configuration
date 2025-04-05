@@ -58,6 +58,8 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           vimtex
           lualine-nvim
           conflict-marker-vim
+          obsidian-nvim
+          plenary-nvim
         ];
         kickstart-debug = [
           nvim-dap
