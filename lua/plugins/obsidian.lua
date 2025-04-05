@@ -5,7 +5,7 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	cond = function()
 		-- Check if the file is a LaTeX file or if the current directory is part of a LaTeX project
-		return vim.fn.expand("%:e") == "tex"
+		return vim.fn.expand("%:e") == "md"
 	end,
 	ft = "markdown",
 	dependencies = {
