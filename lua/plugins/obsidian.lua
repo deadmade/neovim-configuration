@@ -10,8 +10,11 @@ return {
     opts = {
         workspaces = {
             {
-                name = "personal",
-                path = "~/vaults/study",
+                name = "notes",
+                -- Path to your Obsidian vault.
+                path = "~/Documents/notes",
+                -- Optional, if you want to use a different file extension for your notes.
+                extension = ".md",
             },
         },
         completion = {
