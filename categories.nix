@@ -110,6 +110,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
         test = {
           CATTESTVAR = "It worked!";
         };
+        EDITOR = "nvim";
       };
 
       # If you know what these are, you can provide custom ones by category here.
