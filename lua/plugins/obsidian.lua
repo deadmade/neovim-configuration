@@ -16,7 +16,7 @@ return {
 			{
 				name = "notes",
 				-- Path to your Obsidian vault.
-				path = "~/Documents/notes",
+				path = "/home/deadmade/Tinf2023-LessonSummaries",
 				-- Optional, if you want to use a different file extension for your notes.
 				extension = ".md",
 			},
