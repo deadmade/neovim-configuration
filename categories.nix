@@ -14,6 +14,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           stylua
           ltex-ls
           marksman
+          rust-analyzer
         ];
         kickstart-debug = [
           delve
