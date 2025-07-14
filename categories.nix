@@ -15,7 +15,6 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           ltex-ls
           marksman
           rust-analyzer
-          copilot-lua
         ];
         kickstart-debug = [
           delve
@@ -63,6 +62,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           conflict-marker-vim
           obsidian-nvim
           plenary-nvim
+          copilot-lua
         ];
         kickstart-debug = [
           nvim-dap
