@@ -101,6 +101,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
       sharedLibraries = {
         general = with pkgs; [
           # libgit2
+          nodejs_24
         ];
       };
 
