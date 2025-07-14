@@ -52,26 +52,7 @@ local lazyOptions = {
 -- argument, the path to lazy.nvim as downloaded by nix, or nil, before the normal arguments.
 require("nixCatsUtils.lazyCat").setup(nixCats.pawsible({ "allPlugins", "start", "lazy.nvim" }), {
 
-	--require 'plugins.ltex',
-	require("plugins.vim-sleuth"),
-	require("plugins.comment"),
-	require("plugins.obsidian"),
 
-	require("plugins.gitsigns"),
-	require("plugins.conflict-marker"),
-	require("plugins.lualine"),
-
-	require("plugins.which-key"),
-	require("plugins.telescope"),
-	require("plugins.lsp"),
-	require("plugins.autoformat"),
-	require("plugins.autocompletion"),
-	require("plugins.themes"),
-
-	require("plugins.treesitter"),
-	require("plugins.smalltools"),
-	require("plugins.vimtex"),
-  require("plugins.hlchunk"), 
 	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
 	-- init.lua. If you want these files, they are in the repository, so you can just download them and
 	-- place them in the correct locations.
