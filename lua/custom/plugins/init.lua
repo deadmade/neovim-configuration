@@ -1,27 +1,26 @@
--- You can add your own plugins here or in other files in this directory!
+-- You can add your own custom.plugins. here or in other files in this directory!
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
 return {
-	--require 'ltex',
-	--require("vim-sleuth"),
-	require("comment"),
-	require("obsidian"),
+	--require 'custom.plugins..ltex',
+	require("custom.plugins..vim-sleuth"),
+	require("custom.plugins..comment"),
+	require("custom.plugins..obsidian"),
 
-	require("gitsigns"),
-	require("conflict-marker"),
-	require("lualine"),
+	require("custom.plugins..gitsigns"),
+	require("custom.plugins..conflict-marker"),
+	require("custom.plugins..lualine"),
 
-	require("which-key"),
-	require("telescope"),
-	require("lsp"),
-	require("autoformat"),
-	require("autocompletion"),
-	require("themes"),
+	require("custom.plugins..which-key"),
+	require("custom.plugins..telescope"),
+	require("custom.plugins..lsp"),
+	require("custom.plugins..autoformat"),
+	require("custom.plugins..autocompletion"),
+	require("custom.plugins..themes"),
 
-	require("treesitter"),
-	require("smalltools"),
-	require("vimtex"),
-    require("hlchunk"), 
-    require("copilot"),
+	require("custom.plugins..treesitter"),
+	require("custom.plugins..smalltools"),
+	require("custom.plugins..vimtex"),
+  require("custom.plugins..hlchunk"), 
 }
