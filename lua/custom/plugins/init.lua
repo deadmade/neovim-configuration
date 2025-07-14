@@ -4,7 +4,7 @@
 -- See the kickstart.nvim README for more information
 return {
 	--require 'ltex',
-	require("vim-sleuth"),
+	--require("vim-sleuth"),
 	require("comment"),
 	require("obsidian"),
 
