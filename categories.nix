@@ -15,6 +15,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           ltex-ls
           marksman
           rust-analyzer
+          nodejs_24
         ];
         kickstart-debug = [
           delve
@@ -63,7 +64,6 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           obsidian-nvim
           plenary-nvim
           copilot-lua
-          nodejs_24
         ];
         kickstart-debug = [
           nvim-dap
