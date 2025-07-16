@@ -62,6 +62,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
           conflict-marker-vim
           obsidian-nvim
           plenary-nvim
+          autoclose
         ];
         kickstart-debug = [
           nvim-dap
