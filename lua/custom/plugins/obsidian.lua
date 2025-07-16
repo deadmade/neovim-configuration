@@ -36,7 +36,7 @@ return {
 			-- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', or 'mini.pick'.
 			name = "telescope.nvim",
 			-- Optional, configure key mappings for the picker. These are the defaults.
-			-- Not all pickers support all mappings.
+			-- Not all pickers support alltrue mappings.
 			note_mappings = {
 				-- Create a new note from your query.
 				new = "<C-x>",
@@ -50,6 +50,8 @@ return {
 				insert_tag = "<C-l>",
 			},
 		},
+
+		legacy_commands = false,true
 
 		disable_frontmatter = true, -- Disable metadata frontmatter
 		note_id_func = function(title)
