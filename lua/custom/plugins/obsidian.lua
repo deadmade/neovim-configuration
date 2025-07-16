@@ -51,7 +51,7 @@ return {
 			},
 		},
 
-		legacy_commands = false,true
+		legacy_commands = false,
 
 		disable_frontmatter = true, -- Disable metadata frontmatter
 		note_id_func = function(title)
