@@ -11,7 +11,7 @@ return {
 	require("custom.plugins.gitsigns"),
 	require("custom.plugins.conflict-marker"),
 	require("custom.plugins.lualine"),
-	require("custom.plugins.autocomplete"),
+	require("custom.plugins.autoclose"),
 
 	require("custom.plugins.which-key"),
 	require("custom.plugins.telescope"),
