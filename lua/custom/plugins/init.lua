@@ -3,5 +3,25 @@
 --
 -- See the kickstart.nvim README for more information
 return {
+	--require 'custom.plugins..ltex',
+	require("custom.plugins.vim-sleuth"),
+	require("custom.plugins.comment"),
+	require("custom.plugins.obsidian"),
 
+	require("custom.plugins.gitsigns"),
+	require("custom.plugins.conflict-marker"),
+	require("custom.plugins.lualine"),
+	require("custom.plugins.autocomplete"),
+
+	require("custom.plugins.which-key"),
+	require("custom.plugins.telescope"),
+	require("custom.plugins.lsp"),
+	require("custom.plugins.autoformat"),
+	require("custom.plugins.autocompletion"),
+	require("custom.plugins.themes"),
+
+	require("custom.plugins.treesitter"),
+	require("custom.plugins.smalltools"),
+	require("custom.plugins.vimtex"),
+  	require("custom.plugins.hlchunk"), 
 }
