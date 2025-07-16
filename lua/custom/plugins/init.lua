@@ -9,7 +9,6 @@ return {
 	require("custom.plugins.obsidian"),
 
 	require("custom.plugins.gitsigns"),
-	require("custom.plugins.copilot"),
 	require("custom.plugins.conflict-marker"),
 	require("custom.plugins.lualine"),
 
