@@ -11,7 +11,6 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 	},
-	conceallevel=1,
 	opts = {
 		workspaces = {
 			{
@@ -30,7 +29,7 @@ return {
 		},
 
 		ui = {
-			enable = true,
+			enable = false,
 		},
 
 		picker = {
