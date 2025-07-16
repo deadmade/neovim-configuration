@@ -11,6 +11,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 	},
+	conceallevel=1,
 	opts = {
 		workspaces = {
 			{
