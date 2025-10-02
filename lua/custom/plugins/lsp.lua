@@ -240,18 +240,18 @@ return { -- LSP Configuration & Plugins
       },
     }
 
-    -- NOTE: nixCats: if nix, use lspconfig instead of mason
+    -- NOTE: nixCats: if nix, use vim.lsp.config instead of mason
     -- You could MAKE it work, using lspsAndRuntimeDeps and sharedLibraries in nixCats
     -- but don't... its not worth it. Just add the lsp to lspsAndRuntimeDeps.
     if require('nixCatsUtils').isNixCats then
-      for server_name,_ in pairs(servers) do
-        require('lspconfig')[server_name].setup({
+      for server_name, server_config in pairs(servers) do
+        vim.lsp.config[server_name] = {
           capabilities = capabilities,
-          settings = (servers[server_name] or {}).settings,
-          filetypes = (servers[server_name] or {}).filetypes,
-          cmd = (servers[server_name] or {}).cmd,
-          root_pattern = (servers[server_name] or {}).root_pattern,
-        })
+          settings = server_config.settings or {},
+          filetypes = server_config.filetypes,
+          cmd = server_config.cmd,
+          root_markers = server_config.root_pattern,
+        }
       end
     else
       -- NOTE: nixCats: and if no nix, do it the normal way
@@ -280,7 +280,7 @@ return { -- LSP Configuration & Plugins
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            vim.lsp.config[server_name] = server
           end,
         },
       }
