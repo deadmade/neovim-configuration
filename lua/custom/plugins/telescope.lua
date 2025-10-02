@@ -7,6 +7,7 @@
 
 return { -- Fuzzy Finder (files, lsp, etc)
 	"nvim-telescope/telescope.nvim",
+	enabled = require('nixCatsUtils').enableForCategory("core-plugins"),
 	event = "VimEnter",
 	branch = "0.1.x",
 	dependencies = {

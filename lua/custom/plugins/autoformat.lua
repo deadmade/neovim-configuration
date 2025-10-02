@@ -1,5 +1,6 @@
 return { -- Autoformat
 'stevearc/conform.nvim',
+enabled = require('nixCatsUtils').enableForCategory("core-plugins"),
 event = { 'BufReadPre', 'BufNewFile' },
 lazy = false,
 keys = {

@@ -1,5 +1,6 @@
 return {
     'lewis6991/gitsigns.nvim',
+    enabled = require('nixCatsUtils').enableForCategory("core-plugins"),
     event = 'BufRead', -- Load only when opening a file
     cond = function()
         return vim.fn.isdirectory(vim.fn.getcwd() .. '/.git') == 1

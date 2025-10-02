@@ -1,50 +1,241 @@
- inputs: let
+inputs: let
   inherit (inputs.nixCats) utils;
-  in {
-      # These are the names of your packages
-      # you can include as many as you wish.
-      nvim = { pkgs , ... }: {
-        # they contain a settings set defined above
-        # see :help nixCats.flake.outputs.settings
-        settings = {
-          wrapRc = true;
-          # IMPORTANT:
-          # your alias may not conflict with your other packages.
-          aliases = [ "vim" "vi" ];
-          # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
-        };
-        # and a set of categories that you want
-        # (and other information to pass to lua)
-        categories = {
-          general = true;
-          gitPlugins = true;
-          customPlugins = true;
-          test = true;
+in {
+  # Base editor with core features
+  nvim = { pkgs, ... }: {
+    settings = {
+      wrapRc = true;
+      aliases = [ "vim" "vi" ];
+    };
+    categories = {
+      general = true;
+      lua-dev = true;
+      
+      # Core editing features
+      git-integration = true;
+      text-editing = true;
+      ui-enhancements = true;
+      
+      # Default kickstart plugins
+      kickstart-autopairs = true;
+      kickstart-gitsigns = true;
+      
+      # All core custom plugins in one category
+      core-plugins = true;
+      
+      # Disable specialized plugins in base
+      custom-obsidian = false;
+      custom-vimtex = false;
+      
+      have_nerd_font = true;
+    };
+  };
 
-          kickstart-autopairs = true;
-          kickstart-neo-tree = false;
-          kickstart-debug = true;
-          kickstart-lint = true;
-          kickstart-indent_line = true;
+  # Nix development
+  nvim-nix = { pkgs, ... }: {
+    settings = {
+      wrapRc = true;
+      # aliases = [ "nvim-nix" ];  # Remove alias to avoid symlink conflicts
+    };
+    categories = {
+      general = true;
+      lua-dev = true;
+      nix-dev = true;
+      
+      # Core editing features
+      git-integration = true;
+      text-editing = true;
+      ui-enhancements = true;
+      
+      # All core custom plugins in one category
+      core-plugins = true;
+      
+      # Disable non-relevant plugins
+      custom-obsidian = false;
+      custom-vimtex = false;
+      
+      have_nerd_font = true;
+    };
+  };
 
-          # this kickstart extra didnt require any extra plugins
-          # so it doesnt have a category above.
-          # but we can still send the info from nix to lua that we want it!
-          kickstart-gitsigns = true;
+  # Rust development
+  nvim-rust = { pkgs, ... }: {
+    settings = {
+      wrapRc = true;
+      # aliases = [ "nvim-rs" ];  # Remove alias to avoid symlink conflicts
+    };
+    categories = {
+      general = true;
+      lua-dev = true;
+      rust-dev = true;
+      
+      # Core editing features
+      git-integration = true;
+      text-editing = true;
+      ui-enhancements = true;
+      
+      # All core custom plugins in one category
+      core-plugins = true;
+      
+      # Disable non-relevant plugins
+      custom-obsidian = false;
+      custom-vimtex = false;
+      
+      kickstart-debug = true;
+      have_nerd_font = true;
+    };
+  };
 
-          # we can pass whatever we want actually.
-          have_nerd_font = true;
+  # Web development (JS/TS/React/etc)
+  nvim-web = { pkgs, ... }: {
+    settings = {
+      wrapRc = true;
+      # aliases = [ "nvim-web" ];  # Remove alias to avoid symlink conflicts
+    };
+    categories = {
+      general = true;
+      lua-dev = true;
+      web-dev = true;
+      
+      # Core editing features
+      git-integration = true;
+      text-editing = true;
+      ui-enhancements = true;
+      
+      # All core custom plugins in one category
+      core-plugins = true;
+      
+      # Disable non-relevant plugins
+      custom-obsidian = false;
+      custom-vimtex = false;
+      
+      kickstart-debug = true;
+      kickstart-lint = true;
+      have_nerd_font = true;
+    };
+  };
 
-          example = {
-            youCan = "add more than just booleans";
-            toThisSet = [
-              "and the contents of this categories set"
-              "will be accessible to your lua with"
-              "nixCats('path.to.value')"
-              "see :help nixCats"
-              "and type :NixCats to see the categories set in nvim"
-            ];
-          };
-        };
-      };
-    }
+  # Python development
+  nvim-python = { pkgs, ... }: {
+    settings = {
+      wrapRc = true;
+      # aliases = [ "nvim-py" ];  # Remove alias to avoid symlink conflicts
+    };
+    categories = {
+      general = true;
+      lua-dev = true;
+      python-dev = true;
+      
+      # Core editing features
+      git-integration = true;
+      text-editing = true;
+      ui-enhancements = true;
+      
+      # All core custom plugins in one category
+      core-plugins = true;
+      
+      # Disable non-relevant plugins
+      custom-obsidian = false;
+      custom-vimtex = false;
+      
+      kickstart-debug = true;
+      kickstart-lint = true;
+      have_nerd_font = true;
+    };
+  };
+
+  # Go development
+  nvim-go = { pkgs, ... }: {
+    settings = {
+      wrapRc = true;
+      # aliases = [ "nvim-go" ];  # Remove alias to avoid symlink conflicts
+    };
+    categories = {
+      general = true;
+      lua-dev = true;
+      go-dev = true;
+      
+      # Core editing features
+      git-integration = true;
+      text-editing = true;
+      ui-enhancements = true;
+      
+      # All core custom plugins in one category
+      core-plugins = true;
+      
+      # Disable non-relevant plugins
+      custom-obsidian = false;
+      custom-vimtex = false;
+      
+      kickstart-debug = true;
+      have_nerd_font = true;
+    };
+  };
+
+  # Writing (Markdown/LaTeX/Documentation)
+  nvim-writing = { pkgs, ... }: {
+    settings = {
+      wrapRc = true;
+      # aliases = [ "nvim-md" ];  # Remove alias to avoid symlink conflicts
+    };
+    categories = {
+      general = true;
+      lua-dev = true;
+      writing = true;
+      
+      # Core editing features
+      git-integration = true;
+      text-editing = true;
+      ui-enhancements = true;
+      
+      # All core custom plugins in one category
+      core-plugins = true;
+      
+      # Enable writing-specific plugins
+      custom-obsidian = true;
+      custom-vimtex = true;
+      
+      kickstart-lint = true;
+      have_nerd_font = true;
+    };
+  };
+
+  # Full-featured version (everything)
+  nvim-full = { pkgs, ... }: {
+    settings = {
+      wrapRc = true;
+      # aliases = [ "nvim-full" ];  # Remove alias to avoid symlink conflicts
+    };
+    categories = {
+      general = true;
+      lua-dev = true;
+      nix-dev = true;
+      rust-dev = true;
+      web-dev = true;
+      python-dev = true;
+      go-dev = true;
+      systems-dev = true;
+      writing = true;
+      
+      # Core editing features
+      git-integration = true;
+      text-editing = true;
+      ui-enhancements = true;
+      
+      # All core custom plugins in one category
+      core-plugins = true;
+      
+      # All specialized plugins enabled
+      custom-obsidian = true;
+      custom-vimtex = true;
+      
+      # All kickstart plugins enabled
+      kickstart-debug = true;
+      kickstart-lint = true;
+      kickstart-autopairs = true;
+      kickstart-gitsigns = true;
+      kickstart-indent_line = true;
+      have_nerd_font = true;
+    };
+  };
+}

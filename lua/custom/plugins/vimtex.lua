@@ -1,5 +1,6 @@
 return {
     "lervag/vimtex",
+    enabled = require('nixCatsUtils').enableForCategory("custom-vimtex"),
     event = 'BufRead',  -- Load only when opening a file
     cond = function()
       -- Check if the file is a LaTeX file or if the current directory is part of a LaTeX project

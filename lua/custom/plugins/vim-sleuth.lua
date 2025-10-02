@@ -1,1 +1,4 @@
-return {'tpope/vim-sleuth'} -- Detect tabstop and shiftwidth automatically
+return {
+  'tpope/vim-sleuth',
+  enabled = require('nixCatsUtils').enableForCategory("core-plugins"),
+} -- Detect tabstop and shiftwidth automatically

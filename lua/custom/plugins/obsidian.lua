@@ -1,5 +1,6 @@
 return {
 	"epwalsh/obsidian.nvim",
+	enabled = require('nixCatsUtils').enableForCategory("custom-obsidian"),
 	version = "*", -- recommended, use latest release instead of latest commit
 	lazy = true,
 	event = { "BufReadPre", "BufNewFile" },
