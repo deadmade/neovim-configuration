@@ -201,7 +201,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
     kickstart-indent_line = [
       indent-blankline-nvim
     ];
-    
+
     kickstart-neo-tree = [
       neo-tree-nvim
       nui-nvim
@@ -210,6 +210,14 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
       # also somewhere else
       nvim-web-devicons
       plenary-nvim
+    ];
+
+    # IDE Features for beginner-friendly experience
+    ide-features = [
+      alpha-nvim           # Start dashboard with recent files
+      project-nvim         # Project management and detection
+      persistence-nvim     # Session persistence
+      nvim-navic          # Code breadcrumbs/context in winbar
     ];
   };
 

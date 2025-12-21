@@ -4,7 +4,7 @@ in {
   nvim = { pkgs, ... }: {
     settings = {
       wrapRc = true;
-      aliases = [ "vim" "vi" ];
+      aliases = [ "vim" "vi"];
     };
     categories = {
       general = true;
@@ -35,7 +35,12 @@ in {
       kickstart-autopairs = true;
       kickstart-gitsigns = true;
       kickstart-indent_line = true;
+      kickstart-neo-tree = true;
+
+      # IDE features for beginner-friendly experience
+      ide-features = true;
+
       have_nerd_font = true;
   };
-  }
+  };
 }

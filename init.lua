@@ -79,5 +79,6 @@ require("nixCatsUtils.lazyCat").setup(nixCats.pawsible({ "allPlugins", "start", 
 	--    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
 	{ import = "custom.plugins" },
 }, lazyOptions)
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
