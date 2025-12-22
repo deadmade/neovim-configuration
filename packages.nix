@@ -41,6 +41,6 @@ in {
       ide-features = true;
 
       have_nerd_font = true;
-  };
+    };
   };
 }

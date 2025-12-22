@@ -2,10 +2,14 @@
 return {
   'ahmedkhalf/project.nvim',
   enabled = require('nixCatsUtils').enableForCategory('ide-features'),
+  event = 'VimEnter',
+  dependencies = {
+    'nvim-telescope/telescope.nvim',
+  },
   config = function()
-    require('project_nvim').setup({
-      -- Detection methods for project root
-      detection_methods = { 'pattern', 'lsp' },
+    require('project').setup({
+      -- Enable LSP-based project detection
+      use_lsp = true,
 
       -- Patterns to identify project root
       patterns = {
