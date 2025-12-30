@@ -1,5 +1,5 @@
 {
-  description = "deadmade's NixOS Neovim configuration";
+  description = "deadmade's Neovim configuration";
   nixConfig = {
     extra-substituters = [
       "https://nix-community.cachix.org"

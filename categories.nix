@@ -106,15 +106,8 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
       lualine-nvim
       hlchunk-nvim
       
-      # Base treesitter with essential grammars
-      (nvim-treesitter.withPlugins (plugins: with plugins; [
-        lua
-        vim
-        vimdoc
-        query
-        markdown
-        markdown_inline
-      ]))
+      # Treesitter with ALL available grammars
+      nvim-treesitter.withAllGrammars
       
       # Git integration & conflict resolution
       gitsigns-nvim
@@ -128,52 +121,33 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
     
     # Nix-specific plugins
     nix-dev = [
-      (nvim-treesitter.withPlugins (plugins: with plugins; [ nix ]))
     ];
     
     # Rust-specific plugins
     rust-dev = [
-      (nvim-treesitter.withPlugins (plugins: with plugins; [ rust toml ]))
     ];
     
     # Web development plugins
     web-dev = [
-      (nvim-treesitter.withPlugins (plugins: with plugins; [
-        javascript
-        typescript
-        tsx
-        html
-        css
-        json
-        yaml
-      ]))
     ];
     
     # Python plugins
     python-dev = [
-      (nvim-treesitter.withPlugins (plugins: with plugins; [ python ]))
     ];
     
     # Go plugins
     go-dev = [
       nvim-dap-go
-      (nvim-treesitter.withPlugins (plugins: with plugins; [ go gomod gowork ]))
     ];
     
     # Systems programming
     systems-dev = [
-      (nvim-treesitter.withPlugins (plugins: with plugins; [ c cpp cmake make ]))
     ];
     
     # Writing plugins
     writing = [
       vimtex
       obsidian-nvim
-      (nvim-treesitter.withPlugins (plugins: with plugins; [ 
-        markdown 
-        latex
-        bibtex
-      ]))
     ];
     
     # Git integration
