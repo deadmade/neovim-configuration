@@ -185,14 +185,6 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
       nvim-web-devicons
       plenary-nvim
     ];
-
-    # IDE Features for beginner-friendly experience
-    ide-features = [
-      alpha-nvim           # Start dashboard with recent files
-      project-nvim         # Project management and detection
-      persistence-nvim     # Session persistence
-      nvim-navic          # Code breadcrumbs/context in winbar
-    ];
   };
 
   # not loaded automatically at startup.
