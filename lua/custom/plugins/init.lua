@@ -24,4 +24,10 @@ return {
 	require("custom.plugins.smalltools"),
 	require("custom.plugins.vimtex"),
   	require("custom.plugins.hlchunk"), 
+
+	-- IDE Features
+	require("custom.plugins.alpha"),
+	require("custom.plugins.navic"),
+	require("custom.plugins.persistence"),
+	require("custom.plugins.project"),
 }

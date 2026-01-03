@@ -1,4 +1,4 @@
-return {{
+return {
     'nvim-lualine/lualine.nvim',
     enabled = require('nixCatsUtils').enableForCategory("core-plugins"),
     dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -46,4 +46,4 @@ return {{
             extensions = {}
           }
     end
-}}
+}
