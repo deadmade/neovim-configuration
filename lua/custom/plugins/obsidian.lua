@@ -11,6 +11,7 @@ return {
 	ft = "markdown",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
+		"hrsh7th/nvim-cmp",
 	},
 	opts = {
 		workspaces = {
@@ -54,7 +55,9 @@ return {
 
 		legacy_commands = false,
 
-		disable_frontmatter = true, -- Disable metadata frontmatter
+		frontmatter = {
+			enabled = false,
+		}, -- Disable metadata frontmatter
 		note_id_func = function(title)
 			-- Use the title as the filename instead of generating an ID
 			return title:gsub(" ", "_"):lower()
