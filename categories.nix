@@ -8,6 +8,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
       universal-ctags
       ripgrep
       fd
+      lazygit
       stdenv.cc.cc
     ];
     
@@ -98,9 +99,15 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
       cmp_luasnip
       cmp-nvim-lsp
       cmp-path
+      cmp-buffer
+      cmp-cmdline
+      lspkind-nvim
       
       # UI & Themes
       tokyonight-nvim
+      catppuccin-nvim
+      kanagawa-nvim
+      gruvbox
       todo-comments-nvim
       mini-nvim
       lualine-nvim
@@ -112,6 +119,10 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
       # Git integration & conflict resolution
       gitsigns-nvim
       conflict-marker-vim
+    ];
+
+    core-snacks = [
+      snacks-nvim
     ];
     
     # Lua development (always included)

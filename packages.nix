@@ -24,6 +24,7 @@ in {
       
       # All core custom plugins in one category
       core-plugins = true;
+      core-snacks = true;
       
       # All specialized plugins enabled
       custom-obsidian = true;

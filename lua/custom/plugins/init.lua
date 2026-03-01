@@ -15,6 +15,7 @@ return {
 
 	require("custom.plugins.which-key"),
 	require("custom.plugins.telescope"),
+	require("custom.plugins.snacks"),
 	require("custom.plugins.lsp"),
 	require("custom.plugins.autoformat"),
 	require("custom.plugins.autocompletion"),

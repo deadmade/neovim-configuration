@@ -80,8 +80,16 @@ return {            -- Useful plugin to show you pending keybinds.
 
       -- Non-leader keybindings
       { '<leader>D',   desc = 'Type [D]efinition' },
-      { '<leader>e',   desc = 'Show Diagnostic [E]rror Messages' },
+      { '<leader>e',   desc = 'Toggle file explorer' },
+      { '<leader>vd',  desc = '[V]iew [D]iagnostics' },
+      { '<leader>vrr', desc = '[V]iew [R]eferences' },
+      { '<leader>vws', desc = '[V]iew [W]orkspace [S]ymbols' },
       { '<leader>f',   desc = '[F]ormat Buffer' },
+      { '<leader>ff',  desc = 'Find files' },
+      { '<leader>fb',  desc = 'Find buffers' },
+      { '<leader>fg',  desc = 'Live grep' },
+      { '<leader>fr',  desc = 'Recent files' },
+      { '<leader>lg',  desc = 'Lazygit' },
       { '<leader>b',   desc = 'Debug: Toggle [B]reakpoint' },
       { '<leader>B',   desc = 'Debug: Set Conditional [B]reakpoint' },
       { '<leader><leader>', desc = '[ ] Find Existing Buffers' },
