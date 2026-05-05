@@ -28,9 +28,6 @@ return {
     },
   },
   config = function()
-    local lspconfig = require('lspconfig')
-    local util = require('lspconfig.util')
-
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
@@ -48,7 +45,7 @@ return {
           fallbackFlags = { '-std=c99' },
           useDefaultFallbackStyle = false,
         },
-        root_dir = util.root_pattern('CMakeLists.txt', '.git'),
+        root_markers = { 'CMakeLists.txt', '.git' },
       },
       gopls = {},
       pyright = {
@@ -175,11 +172,15 @@ return {
       end,
     })
 
+    vim.lsp.config('*', { capabilities = capabilities })
+
     if require('nixCatsUtils').isNixCats then
       for server_name, server in pairs(servers) do
-        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-        lspconfig[server_name].setup(server)
+        if next(server) ~= nil then
+          vim.lsp.config(server_name, server)
+        end
       end
+      vim.lsp.enable(vim.tbl_keys(servers))
       return
     end
 
@@ -193,8 +194,10 @@ return {
       handlers = {
         function(server_name)
           local server = servers[server_name] or {}
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          lspconfig[server_name].setup(server)
+          if next(server) ~= nil then
+            vim.lsp.config(server_name, server)
+          end
+          vim.lsp.enable(server_name)
         end,
       },
     })

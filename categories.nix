@@ -22,6 +22,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
     nix-dev = [
       nix-doc
       nixd
+      nixfmt
     ];
     
     # Rust development
@@ -132,6 +133,7 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
     
     # Nix-specific plugins
     nix-dev = [
+      direnv-vim
     ];
     
     # Rust-specific plugins
