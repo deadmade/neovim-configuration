@@ -4,77 +4,57 @@ This document provides guidelines for AI coding agents working on this Neovim co
 
 ## Overview
 
-This is a **NixOS-based Neovim configuration** using the nixCats-nvim framework. It combines:
-- **Nix Flakes** for reproducible package management
-- **lazy.nvim** for plugin management (configured through Nix)
-- **LSP, treesitter, telescope** for IDE-like features
-- Modular Lua configuration split across multiple files
+This is a **Nix-based Neovim configuration** using the nixCats-nvim framework, deliberately kept
+**slim**. It is a terminal editor for **config files and docs** — nix, lua, shell, yaml, json,
+toml and markdown. Real application development happens in another editor; do not add language
+toolchains, debuggers or IDE features for other languages without being asked.
+
+It combines:
+- **Nix Flakes** for reproducible package management (nix fetches and builds every plugin)
+- **lazy.nvim** for plugin loading/configuration (it never downloads anything; `wrapRc = true`)
+- LSP, treesitter, telescope and blink.cmp for the supported languages
 
 **Architecture:**
-- `flake.nix` - Main flake definition and build configuration
-- `packages.nix` - Plugin and LSP tool definitions by category
-- `categories.nix` - Feature categories for different package variants
-- `lua/general/` - Core Neovim settings, keymaps, autocommands
-- `lua/custom/plugins/` - Custom plugin configurations
-- `lua/kickstart/plugins/` - Kickstart.nvim plugin configurations
-- `lua/nixCatsUtils/` - Nix integration utilities
+- `flake.nix` - Flake definition, outputs, NixOS/home-manager modules
+- `categories.nix` - **The plugin and LSP/tool lists**, grouped by category
+- `packages.nix` - **The package definition** (`nvim`) and which categories it enables
+- `lua/general/` - Core settings, keymaps, autocommands
+- `lua/custom/plugins/` - One file per plugin; lazy auto-imports the whole directory
+- `lua/nixCatsUtils/` - Nix integration shim (upstream template; do not edit)
+
+Note the naming is counter-intuitive: `categories.nix` holds the package *contents*,
+`packages.nix` holds the *category switches*.
 
 ## Build, Test, and Lint Commands
 
 ### Building and Running
 ```bash
-# Build the default package
-nix build .#nvim
-
-# Run Neovim directly
-nix run .#nvim
-
-# Build language-specific variants
-nix build .#nvim-rust
-nix build .#nvim-web
-nix build .#nvim-python
-nix build .#nvim-go
-nix build .#nvim-writing
-nix build .#nvim-full
-
-# Enter development shell
-nix develop
+nix build .#nvim          # build the only package
+nix run .#nvim            # run it
+nix develop               # dev shell with the package on PATH
+nix flake check           # validate the flake
+nix flake update          # update inputs
 ```
 
-### Testing and Validation
-```bash
-# Validate flake structure and all packages
-nix flake check
-
-# Test specific package builds (from CI workflow)
-nix build .#nvim-rust --no-link
-nix run .#nvim-rust -- --version
-
-# Show available flake outputs
-nix flake show
-
-# Update flake inputs
-nix flake update
-```
+There is exactly **one** package, `nvim` (aliased `vim`, `vi`). Do not reintroduce per-language
+package variants without being asked.
 
 ### Linting and Formatting
 ```bash
-# Format Lua code with stylua (must be in environment)
-stylua lua/
-
-# Format specific file
-stylua lua/custom/plugins/lsp.lua
-
-# Check Nix syntax
-nix flake check
+stylua lua/               # format lua (conform also does this on save)
+nix flake check           # nix validation
 ```
 
-### Running Single Tests
-This is a configuration project without a traditional test suite. Testing involves:
-1. Building specific package variants (see above)
-2. Running `nvim --version` to verify build
-3. Opening Neovim and checking `:checkhealth` for issues
-4. Testing specific features manually (LSP, telescope, etc.)
+### Testing
+No test suite. Validation means:
+1. `nix build .#nvim`
+2. `nix run .#nvim -- --version`
+3. `:checkhealth` — expect provider warnings (providers are disabled on purpose); no ERRORs
+4. Open a `.nix`, `.lua`, `.sh`, `.yaml`, `.json`, `.toml` and `.md` file and confirm LSP
+   attaches (`:checkhealth vim.lsp`) and treesitter highlights
+
+Closure size is a feature. Check it with `nix path-info -Sh .#nvim` before and after changes
+that add packages; it currently sits around **1.2 GiB**.
 
 ## Code Style Guidelines
 
@@ -85,89 +65,32 @@ This is a configuration project without a traditional test suite. Testing involv
 - Follow stylua defaults for formatting
 - Max line length: Keep reasonable (~100-120 chars)
 
-**Imports and Requires:**
+**Plugin Configuration Pattern:**
 ```lua
--- Use require() for modules
-local telescope = require('telescope')
-local utils = require('nixCatsUtils')
-
--- Plugin specs return a table
-return {
-  'plugin/name',
-  enabled = require('nixCatsUtils').enableForCategory("category-name"),
-  dependencies = { 'other/plugin' },
-  config = function()
-    -- Configuration here
-  end,
+return { -- Brief description
+  'author/plugin-name',
+  enabled = require('nixCatsUtils').enableForCategory('core-plugins'),
+  event = { 'BufReadPre', 'BufNewFile' }, -- Lazy load on these events
+  opts = {
+    -- Options passed to setup()
+  },
 }
 ```
 
 **Naming Conventions:**
-- `snake_case` for variables and functions: `local my_variable = "value"`
-- `kebab-case` for plugin categories: `"core-plugins"`, `"rust-dev"`
-- `PascalCase` not commonly used in Lua configs
+- `snake_case` for variables and functions
+- `kebab-case` for plugin categories: `core-plugins`, `config-langs`
 
 **Comments:**
 ```lua
 -- Single line comments use double dash
 -- NOTE: Special annotations for important notes
 -- TODO: For future work
--- HACK: For workarounds
--- FIX: For known issues
-
--- Multi-line explanations use multiple single-line comments
--- like this, rather than block comments
-```
-
-**Plugin Configuration Pattern:**
-```lua
-return { -- Brief description
-  'author/plugin-name',
-  enabled = require('nixCatsUtils').enableForCategory("category"),
-  event = { 'BufReadPre', 'BufNewFile' }, -- Lazy load on these events
-  dependencies = {
-    'dependency/plugin',
-  },
-  opts = {
-    -- Options passed to setup()
-  },
-  config = function()
-    -- Custom configuration logic
-    require('plugin-name').setup({})
-  end,
-}
 ```
 
 ### Nix Code Style
 
-**Indentation:** 2 spaces
-**Attribute sets:** Use clear, descriptive names
-**Categories:** Group related functionality (e.g., `rust-dev`, `web-dev`)
-
-```nix
-# Example from packages.nix
-rust-dev = [
-  rust-analyzer
-];
-
-# Example from categories.nix
-categories = {
-  rust-dev = true;
-  web-dev = true;
-};
-```
-
-### Error Handling
-
-- Use `vim.notify()` for user-facing messages
-- Check for nil before accessing nested tables
-- Use `pcall()` for operations that might fail:
-```lua
-local ok, module = pcall(require, 'optional-module')
-if ok then
-  module.setup()
-end
-```
+**Indentation:** 2 spaces. Group related functionality into categories.
 
 ## nixCats Integration Patterns
 
@@ -175,91 +98,59 @@ end
 
 ```lua
 -- Enable plugin only if category is active
-enabled = require('nixCatsUtils').enableForCategory("category-name")
+enabled = require('nixCatsUtils').enableForCategory('category-name')
 
 -- Conditionally set values based on Nix vs non-Nix environment
 -- First arg: non-Nix value, Second arg: Nix value (optional, defaults to nil)
-ensure_installed = require('nixCatsUtils').lazyAdd({ "parser1", "parser2" })
-auto_install = require('nixCatsUtils').lazyAdd(true, false)
+build = require('nixCatsUtils').lazyAdd(':TSUpdate')
 
--- Check if running under Nix
-if require('nixCatsUtils').isNixCats then
-  -- Nix-specific logic
-end
-
--- Query nixCats categories (available as global)
-if nixCats("have_nerd_font") then
-  -- Use nerd font icons
-end
+-- Query nixCats categories (available as a global)
+if nixCats('have_nerd_font') then ... end
 ```
 
 ## File Organization
 
 ### Adding New Plugins
 
-1. Create new file in `lua/custom/plugins/myplugin.lua`
-2. Export plugin spec following the pattern above
-3. Import in `lua/custom/plugins/init.lua`:
-   ```lua
-   require("custom.plugins.myplugin"),
-   ```
-4. Add plugin to `packages.nix` under appropriate category:
-   ```nix
-   startupPlugins = {
-     my-category = [
-       pkgs.vimPlugins.my-plugin
-     ];
-   };
-   ```
-5. Enable category in `categories.nix` if needed
+1. Create `lua/custom/plugins/myplugin.lua` returning a lazy spec (see pattern above).
+   Lazy auto-imports the directory — **do not** add a manual `require` anywhere.
+2. Add the plugin to `categories.nix` under `startupPlugins.core-plugins`.
+3. Verify the nixpkgs attribute exists before building:
+   `nix eval --raw --impure --expr '...vimPlugins.my-plugin.name'`
 
 ### Adding LSP Servers or Tools
 
-1. Add to `lspsAndRuntimeDeps` in `packages.nix`:
-   ```nix
-   my-category = [
-     my-language-server
-     my-formatter
-   ];
-   ```
-2. Configure LSP in `lua/custom/plugins/lsp.lua`
-3. Configure formatter in `lua/custom/plugins/autoformat.lua`
+1. Add the binary to `lspsAndRuntimeDeps` in `categories.nix` (usually `config-langs`).
+2. Add an entry to the `servers` table in `lua/custom/plugins/lsp.lua`.
+3. Formatters go in `formatters_by_ft` in `lua/custom/plugins/autoformat.lua`.
 
 ### Modifying Keymaps
 
 - Global keymaps: `lua/general/keymaps.lua`
-- Plugin-specific keymaps: Within the plugin's config file
-- LSP keymaps: In `lua/custom/plugins/lsp.lua` LspAttach autocmd
+- Plugin-specific keymaps: within that plugin's config file
+- LSP keymaps: the `LspAttach` autocmd in `lua/custom/plugins/lsp.lua`
+- Add a `desc` to every keymap, and document it in `lua/custom/plugins/which-key.lua`
 
-## Common Patterns
+## Current Contents
 
-**Lazy Loading:**
-- Use `event = { 'BufReadPre', 'BufNewFile' }` for file-editing plugins
-- Use `event = "VimEnter"` for UI plugins that should load at startup
-- Use `cmd = "CommandName"` for command-triggered plugins
-- Use `ft = "filetype"` for filetype-specific plugins
+**LSP servers:** `bashls`, `jsonls`, `taplo`, `marksman`, `yamlls`, `lua_ls`, `nixd`
 
-**Leader Key:**
-- Leader key is `<Space>`
-- Local leader is also `<Space>`
-- Use descriptive `desc` in all keymaps for which-key integration
+**Treesitter:** an explicit grammar list in `categories.nix` (~19 languages), **not**
+`withAllGrammars` — that pulled in 326 grammars. nvim-treesitter's main branch no longer enables
+highlighting itself, so `lua/custom/plugins/treesitter.lua` starts it from a `FileType` autocmd.
 
-**Autocommands:**
-- Create augroups with `clear = true` to avoid duplicates
-- Use descriptive group names: `'kickstart-lsp-attach'`
+**Plugins:** telescope (+fzf-native, ui-select), nvim-lspconfig, lazydev, fidget, conform,
+blink.cmp, tokyonight, mini.nvim (ai/surround/statusline), hlchunk, gitsigns, conflict-marker,
+which-key, Comment.nvim, todo-comments, autoclose, vim-sleuth, direnv.vim.
 
-## Best Practices
+**Deliberately absent** — do not re-add without being asked: nvim-dap, neo-tree, snacks.nvim,
+lualine, obsidian.nvim, vimtex, nvim-cmp, mason, indent-blankline, nvim-autopairs, nvim-lint,
+and the rust/go/python/web/C/LaTeX toolchains.
 
-1. **Always test with Nix:** Run `nix build` after changes
-2. **Use nixCats utilities:** Don't bypass the nixCats integration layer
-3. **Keep plugins modular:** One plugin per file in `lua/custom/plugins/`
-4. **Document categories:** Update both `packages.nix` and `categories.nix` together
-5. **Lazy load when possible:** Improves startup time significantly
-6. **Follow existing patterns:** Match the style of existing plugin configs
-7. **Test incrementally:** Build after each significant change
-8. **Use descriptive commit messages:** Focus on "why" not just "what"
+## Leader Key
+
+Leader and local leader are both `<Space>`.
 
 ## GitHub Actions CI
 
-The `.github/workflows/test-packages.yml` workflow tests all package variants on push/PR.
-Ensure your changes don't break any of the package builds before committing.
+`.github/workflows/test-packages.yml` builds `.#nvim` and runs `nix flake check` on push/PR.

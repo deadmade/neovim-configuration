@@ -5,66 +5,31 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
   lspsAndRuntimeDeps = with pkgs; {
     # Core tools for all packages
     general = [
-      universal-ctags
       ripgrep
       fd
       lazygit
-      stdenv.cc.cc
     ];
-    
-    # Lua development (always included for nvim config)
+
+    # Lua development (this config is written in lua)
     lua-dev = [
       lua-language-server
       stylua
     ];
-    
+
     # Nix development
     nix-dev = [
       nix-doc
       nixd
       nixfmt
     ];
-    
-    # Rust development
-    rust-dev = [
-      rust-analyzer
-    ];
-    
-    # Web development
-    web-dev = [
-      nodejs
-      typescript
-    ];
-    
-    # Python development
-    python-dev = [
-      pyright
-    ];
-    
-    # Go development
-    go-dev = [
-      go
-      gopls
-      delve
-    ];
-    
-    # Systems programming
-    systems-dev = [
-      clang-tools
-    ];
-    
-    # Writing/Documentation
-    writing = [
-      ltex-ls
-      marksman
-    ];
-    
-    # Legacy categories (for kickstart compatibility)
-    kickstart-debug = [
-      delve
-    ];
-    kickstart-lint = [
-      markdownlint-cli
+
+    # Everything else this editor is meant for: config files and docs
+    config-langs = [
+      bash-language-server
+      yaml-language-server
+      taplo # toml
+      vscode-langservers-extracted # json / jsonls
+      marksman # markdown
     ];
   };
 
@@ -76,127 +41,63 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
       plenary-nvim
       nvim-web-devicons
     ];
-    
-    # Core plugins loaded by all packages
+
     core-plugins = [
       # Core editing
       vim-sleuth
       comment-nvim
+      todo-comments-nvim
       which-key-nvim
       autoclose-nvim
-      
+      mini-nvim # mini.ai, mini.surround, mini.statusline
+
       # Telescope
       telescope-nvim
       telescope-fzf-native-nvim
       telescope-ui-select-nvim
-      
-      # LSP & Completion
+
+      # LSP, completion & formatting
       nvim-lspconfig
       lazydev-nvim
       fidget-nvim
       conform-nvim
-      nvim-cmp
-      luasnip
-      cmp_luasnip
-      cmp-nvim-lsp
-      cmp-path
-      cmp-buffer
-      cmp-cmdline
-      lspkind-nvim
-      
-      # UI & Themes
+      blink-cmp
+
+      # UI
       tokyonight-nvim
-      catppuccin-nvim
-      kanagawa-nvim
-      gruvbox
-      todo-comments-nvim
-      mini-nvim
-      lualine-nvim
       hlchunk-nvim
-      
-      # Treesitter with ALL available grammars
-      nvim-treesitter.withAllGrammars
-      
+
       # Git integration & conflict resolution
       gitsigns-nvim
       conflict-marker-vim
+
+      # Treesitter, limited to the languages this editor actually opens
+      (nvim-treesitter.withPlugins (p: with p; [
+        nix
+        lua
+        bash
+        yaml
+        json
+        toml
+        markdown
+        markdown_inline
+        vim
+        vimdoc
+        query
+        regex
+        diff
+        git_config
+        gitcommit
+        gitignore
+        dockerfile
+        ini
+        ssh_config
+      ]))
     ];
 
-    core-snacks = [
-      snacks-nvim
-    ];
-    
-    # Lua development (always included)
-    lua-dev = [
-      # Lua-specific plugins if needed
-    ];
-    
     # Nix-specific plugins
     nix-dev = [
       direnv-vim
-    ];
-    
-    # Rust-specific plugins
-    rust-dev = [
-    ];
-    
-    # Web development plugins
-    web-dev = [
-    ];
-    
-    # Python plugins
-    python-dev = [
-    ];
-    
-    # Go plugins
-    go-dev = [
-      nvim-dap-go
-    ];
-    
-    # Systems programming
-    systems-dev = [
-    ];
-    
-    # Writing plugins
-    writing = [
-      vimtex
-      obsidian-nvim
-    ];
-    
-    # Git integration
-    git-integration = [
-      gitsigns-nvim
-    ];
-    
-    # Debug support
-    kickstart-debug = [
-      nvim-dap
-      nvim-dap-ui
-      nvim-dap-go
-      nvim-nio
-    ];
-    
-    # Additional features
-    kickstart-autopairs = [
-      nvim-autopairs
-    ];
-    
-    kickstart-lint = [
-      nvim-lint
-    ];
-    
-    kickstart-indent_line = [
-      indent-blankline-nvim
-    ];
-
-    kickstart-neo-tree = [
-      neo-tree-nvim
-      nui-nvim
-      # nixCats will filter out duplicate packages
-      # so you can put dependencies with stuff even if they're
-      # also somewhere else
-      nvim-web-devicons
-      plenary-nvim
     ];
   };
 
@@ -219,34 +120,19 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
   # this section is for environmentVariables that should be available
   # at RUN TIME for plugins. Will be available to path within neovim terminal
   environmentVariables = {
-    test = {
-      CATTESTVAR = "It worked!";
+    general = {
+      EDITOR = "nvim";
     };
-    EDITOR = "nvim";
   };
 
   # If you know what these are, you can provide custom ones by category here.
   # If you dont, check this link out:
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
-  extraWrapperArgs = {
-    test = [
-      '' --set CATTESTVAR2 "It worked again!"''
-    ];
-  };
+  extraWrapperArgs = {};
 
   # lists of the functions you would have passed to
   # python.withPackages or lua.withPackages
-
-  # get the path to this python environment
-  # in your lua config via
-  # vim.g.python3_host_prog
-  # or run from nvim terminal via :!<packagename>-python3
-  extraPython3Packages = {
-    python-dev = (ps: with ps; [ debugpy ]);
-    test = (_:[]);
-  };
+  extraPython3Packages = {};
   # populates $LUA_PATH and $LUA_CPATH
-  extraLuaPackages = {
-    test = [ (_:[]) ];
-  };
+  extraLuaPackages = {};
 }

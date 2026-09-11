@@ -49,3 +49,10 @@ vim.o.secure = true
 -- Undo / clipboard
 vim.opt.undofile = true
 vim.opt.clipboard = 'unnamedplus'
+
+-- Disable the remote-plugin providers; nothing in this config uses them and
+-- probing for them only costs startup time.
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0

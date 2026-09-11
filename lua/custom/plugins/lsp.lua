@@ -3,19 +3,6 @@ return {
   enabled = require('nixCatsUtils').enableForCategory('core-plugins'),
   event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
-    {
-      'williamboman/mason.nvim',
-      enabled = require('nixCatsUtils').lazyAdd(true, false),
-      config = true,
-    },
-    {
-      'williamboman/mason-lspconfig.nvim',
-      enabled = require('nixCatsUtils').lazyAdd(true, false),
-    },
-    {
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
-      enabled = require('nixCatsUtils').lazyAdd(true, false),
-    },
     { 'j-hui/fidget.nvim', opts = {} },
     {
       'folke/lazydev.nvim',
@@ -28,71 +15,16 @@ return {
     },
   },
   config = function()
+    -- blink.cmp registers its own capabilities via vim.lsp.config, so the
+    -- defaults are all we need to extend here.
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
     local servers = {
-      clangd = {
-        cmd = {
-          'clangd',
-          '--background-index',
-          '--clang-tidy',
-          '--completion-style=detailed',
-          '--fallback-style=file',
-          '--all-scopes-completion=false',
-        },
-        init_options = {
-          fallbackFlags = { '-std=c99' },
-          useDefaultFallbackStyle = false,
-        },
-        root_markers = { 'CMakeLists.txt', '.git' },
-      },
-      gopls = {},
-      pyright = {
-        settings = {
-          python = {
-            checkOnType = false,
-            diagnostics = false,
-            inlayHints = false,
-            smartCompletion = true,
-          },
-        },
-      },
-      rust_analyzer = {
-        settings = {
-          ['rust-analyzer'] = {
-            cargo = { allFeatures = true },
-            check = { command = 'clippy' },
-            diagnostics = { enable = true },
-          },
-        },
-      },
+      bashls = {},
+      jsonls = {},
+      taplo = {},
       marksman = {},
-      texlab = {
-        settings = {
-          texlab = {
-            build = {
-              executable = 'latexmk',
-              args = { '-pdf', '-interaction=nonstopmode', '-synctex=1', '%f' },
-              onSave = true,
-            },
-          },
-        },
-      },
-      ltex = {
-        filetypes = { 'markdown', 'text', 'tex' },
-        settings = {
-          ltex = {
-            language = 'de',
-            additionalLanguages = { 'en-US' },
-            additionalRules = {
-              enablePickyRules = true,
-              languageModel = 'n-gram',
-              motherTongue = 'de',
-            },
-          },
-        },
-      },
+      yamlls = {},
       lua_ls = {
         settings = {
           Lua = {
@@ -106,21 +38,8 @@ return {
           },
         },
       },
+      nixd = {},
     }
-
-    if require('nixCatsUtils').isNixCats then
-      servers.nixd = {}
-    else
-      servers.nil_ls = {
-        settings = {
-          ['nil'] = {
-            formatting = {
-              command = { 'nixfmt' },
-            },
-          },
-        },
-      }
-    end
 
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -144,8 +63,12 @@ return {
         map('<leader>vd', vim.diagnostic.open_float, '[V]iew [D]iagnostics')
         map('<leader>vrr', vim.lsp.buf.references, '[V]iew [R]eferences')
         map('<leader>vws', vim.lsp.buf.workspace_symbol, '[V]iew [W]orkspace [S]ymbols')
-        map(']d', vim.diagnostic.goto_next, 'Next [D]iagnostic')
-        map('[d', vim.diagnostic.goto_prev, 'Previous [D]iagnostic')
+        map(']d', function()
+          vim.diagnostic.jump({ count = 1, float = true })
+        end, 'Next [D]iagnostic')
+        map('[d', function()
+          vim.diagnostic.jump({ count = -1, float = true })
+        end, 'Previous [D]iagnostic')
         map('<C-h>', vim.lsp.buf.signature_help, 'Signature help', 'i')
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -172,36 +95,6 @@ return {
       end,
     })
 
-    vim.lsp.config('*', { capabilities = capabilities })
-
-    if require('nixCatsUtils').isNixCats then
-      for server_name, server in pairs(servers) do
-        if next(server) ~= nil then
-          vim.lsp.config(server_name, server)
-        end
-      end
-      vim.lsp.enable(vim.tbl_keys(servers))
-      return
-    end
-
-    require('mason').setup()
-
-    local ensure_installed = vim.tbl_keys(servers)
-    vim.list_extend(ensure_installed, { 'stylua' })
-    require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
-
-    require('mason-lspconfig').setup({
-      handlers = {
-        function(server_name)
-          local server = servers[server_name] or {}
-          if next(server) ~= nil then
-            vim.lsp.config(server_name, server)
-          end
-          vim.lsp.enable(server_name)
-        end,
-      },
-    })
-
     vim.diagnostic.config({
       virtual_text = {
         spacing = 4,
@@ -219,5 +112,13 @@ return {
         prefix = '',
       },
     })
+
+    vim.lsp.config('*', { capabilities = capabilities })
+    for server_name, server in pairs(servers) do
+      if next(server) ~= nil then
+        vim.lsp.config(server_name, server)
+      end
+    end
+    vim.lsp.enable(vim.tbl_keys(servers))
   end,
 }

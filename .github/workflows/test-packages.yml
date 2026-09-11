@@ -10,7 +10,7 @@ on:
 jobs:
   test-packages:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,53 +23,11 @@ jobs:
       - name: Setup Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@v8
 
-      - name: Test base package
+      - name: Build nvim
         run: |
-          echo "Testing nvim (base package)..."
+          echo "Testing nvim..."
           nix build .#nvim --no-link
           nix run .#nvim -- --version
-
-      - name: Test Rust package
-        run: |
-          echo "Testing nvim-rust package..."
-          nix build .#nvim-rust --no-link
-          nix run .#nvim-rust -- --version
-
-      - name: Test Web package
-        run: |
-          echo "Testing nvim-web package..."
-          nix build .#nvim-web --no-link
-          nix run .#nvim-web -- --version
-
-      - name: Test Nix package
-        run: |
-          echo "Testing nvim-nix package..."
-          nix build .#nvim-nix --no-link
-          nix run .#nvim-nix -- --version
-
-      - name: Test Python package
-        run: |
-          echo "Testing nvim-python package..."
-          nix build .#nvim-python --no-link
-          nix run .#nvim-python -- --version
-
-      - name: Test Go package
-        run: |
-          echo "Testing nvim-go package..."
-          nix build .#nvim-go --no-link
-          nix run .#nvim-go -- --version
-
-      - name: Test Writing package
-        run: |
-          echo "Testing nvim-writing package..."
-          nix build .#nvim-writing --no-link
-          nix run .#nvim-writing -- --version
-
-      - name: Test Full package
-        run: |
-          echo "Testing nvim-full package..."
-          nix build .#nvim-full --no-link
-          nix run .#nvim-full -- --version
 
       - name: Check flake
         run: |

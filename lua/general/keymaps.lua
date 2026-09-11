@@ -6,8 +6,12 @@ vim.keymap.set('i', 'jj', '<Esc>', { silent = true, desc = 'Exit insert mode' })
 
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = 'Go to previous [D]iagnostic message' })
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode
@@ -55,6 +59,8 @@ vim.keymap.set('n', '<C-Down>', ':resize +2<CR>', { noremap = true, silent = tru
 vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { noremap = true, silent = true, desc = 'Resize split left' })
 vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { noremap = true, silent = true, desc = 'Resize split right' })
 
--- Language-specific run helpers
-vim.keymap.set('n', '<leader>n', ':wa<CR>:!python %<CR>', { noremap = true, silent = true, desc = 'Run current python file' })
+-- Run helpers
 vim.keymap.set('n', '<leader>m', ':wa<CR>:make<CR>', { noremap = true, silent = true, desc = 'Run make' })
+
+-- Git
+vim.keymap.set('n', '<leader>lg', '<cmd>terminal lazygit<CR>', { silent = true, desc = 'Lazygit' })
