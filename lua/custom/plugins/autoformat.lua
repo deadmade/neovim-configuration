@@ -1,6 +1,6 @@
 return { -- Autoformat
 'stevearc/conform.nvim',
-enabled = require('nixCatsUtils').enableForCategory("core-plugins"),
+enabled = require('nixCatsUtils').enableForCategory("general"),
 event = { 'BufReadPre', 'BufNewFile' },
 lazy = false,
 keys = {
@@ -26,8 +26,6 @@ opts = {
     }
   end,
   formatters_by_ft = {
-    lua = { 'stylua' },
-    nix = { 'nixfmt' },
     -- Conform can also run multiple formatters sequentially
     -- python = { "isort", "black" },
     --

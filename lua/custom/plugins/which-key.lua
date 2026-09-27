@@ -1,6 +1,6 @@
 return { -- Useful plugin to show you pending keybinds.
   'folke/which-key.nvim',
-  enabled = require('nixCatsUtils').enableForCategory('core-plugins'),
+  enabled = require('nixCatsUtils').enableForCategory('general'),
   event = 'VimEnter',
   config = function()
     require('which-key').setup()
@@ -36,8 +36,6 @@ return { -- Useful plugin to show you pending keybinds.
 
       { '<leader>t', group = '[T]oggle' },
       { '<leader>th', desc = '[T]oggle Inlay [H]ints' },
-      { '<leader>tb', desc = '[T]oggle Git [B]lame' },
-      { '<leader>td', desc = '[T]oggle [D]eleted' },
       { '<leader>t_', hidden = true },
 
       { '<leader>w', group = '[W]orkspace/[W]indow' },
@@ -46,23 +44,10 @@ return { -- Useful plugin to show you pending keybinds.
       { '<leader>w-', desc = 'Split horizontal' },
       { '<leader>w_', hidden = true },
 
-      { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-      { '<leader>hs', desc = '[H]unk [S]tage' },
-      { '<leader>hr', desc = '[H]unk [R]eset' },
-      { '<leader>hS', desc = '[H]unk [S]tage Buffer' },
-      { '<leader>hu', desc = '[H]unk [U]ndo Stage' },
-      { '<leader>hR', desc = '[H]unk [R]eset Buffer' },
-      { '<leader>hp', desc = '[H]unk [P]review' },
-      { '<leader>hb', desc = '[H]unk [B]lame Line' },
-      { '<leader>hd', desc = '[H]unk [D]iff This' },
-      { '<leader>hD', desc = '[H]unk [D]iff This (cached)' },
-      { '<leader>h_', hidden = true },
-
       -- Direct leader mappings
       { '<leader>D', desc = 'Type [D]efinition' },
       { '<leader>q', desc = 'Open diagnostic [Q]uickfix list' },
       { '<leader>f', desc = '[F]ormat Buffer' },
-      { '<leader>lg', desc = 'Lazygit' },
       { '<leader>m', desc = 'Run make' },
       { '<leader>y', desc = 'Yank to system clipboard', mode = { 'n', 'v' } },
       { '<leader>Y', desc = 'Yank line to system clipboard' },
@@ -90,11 +75,9 @@ return { -- Useful plugin to show you pending keybinds.
       { '[d', desc = 'Go to Previous [D]iagnostic Message' },
       { ']d', desc = 'Go to Next [D]iagnostic Message' },
 
-      -- Quickfix / hunk navigation
+      -- Quickfix navigation
       { '[q', desc = 'Previous quickfix item' },
       { ']q', desc = 'Next quickfix item' },
-      { '[h', desc = 'Go to Previous Git [H]unk' },
-      { ']h', desc = 'Go to Next Git [H]unk' },
 
       -- Window navigation
       { '<C-h>', desc = 'Move Focus to Left Window' },

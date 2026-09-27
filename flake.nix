@@ -108,18 +108,32 @@
     };
 
   }) // (let
+    # adds a `defaultEditor` option (default true) that sets EDITOR/VISUAL
+    # whenever the package is enabled and installed by the module
+    withDefaultEditor = nixCatsModule: setVars: { config, lib, ... }: let
+      cfg = config.${defaultPackageName};
+    in {
+      imports = [ nixCatsModule ];
+      options.${defaultPackageName}.defaultEditor = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Whether to set ${defaultPackageName} as the default editor via EDITOR and VISUAL.";
+      };
+      config = lib.mkIf (cfg.enable && !cfg.dontInstall && cfg.defaultEditor)
+        (setVars (lib.mkOverride 900 defaultPackageName));
+    };
     # we also export a nixos module to allow reconfiguration from configuration.nix
-    nixosModule = utils.mkNixosModules {
+    nixosModule = withDefaultEditor (utils.mkNixosModules {
       moduleNamespace = [ defaultPackageName ];
       inherit defaultPackageName dependencyOverlays luaPath
         categoryDefinitions packageDefinitions extra_pkg_config nixpkgs;
-    };
+    }) (editor: { environment.variables = { EDITOR = editor; VISUAL = editor; }; });
     # and the same for home manager
-    homeModule = utils.mkHomeModules {
+    homeModule = withDefaultEditor (utils.mkHomeModules {
       moduleNamespace = [ defaultPackageName ];
       inherit defaultPackageName dependencyOverlays luaPath
         categoryDefinitions packageDefinitions extra_pkg_config nixpkgs;
-    };
+    }) (editor: { home.sessionVariables = { EDITOR = editor; VISUAL = editor; }; });
   in {
 
     # these outputs will be NOT wrapped with ${system}

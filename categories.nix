@@ -3,46 +3,27 @@ inputs: let
 in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
 
   lspsAndRuntimeDeps = with pkgs; {
-    # Core tools for all packages
     general = [
+      # Search tools used by telescope
       ripgrep
       fd
-      lazygit
-    ];
 
-    # Lua development (this config is written in lua)
-    lua-dev = [
-      lua-language-server
-      stylua
-    ];
-
-    # Nix development
-    nix-dev = [
-      nix-doc
-      nixd
-      nixfmt
-    ];
-
-    # Everything else this editor is meant for: config files and docs
-    config-langs = [
+      # Language servers for config files and docs
       bash-language-server
       yaml-language-server
       taplo # toml
-      vscode-langservers-extracted # json / jsonls
       marksman # markdown
     ];
   };
 
   # This is for plugins that will load at startup without using packadd:
   startupPlugins = with pkgs.vimPlugins; {
-    # Base plugins for all packages
     general = [
+      # Base
       lazy-nvim
       plenary-nvim
       nvim-web-devicons
-    ];
 
-    core-plugins = [
       # Core editing
       vim-sleuth
       comment-nvim
@@ -58,23 +39,13 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
 
       # LSP, completion & formatting
       nvim-lspconfig
-      lazydev-nvim
       fidget-nvim
       conform-nvim
       blink-cmp
 
-      # UI
-      tokyonight-nvim
-      hlchunk-nvim
-
-      # Git integration & conflict resolution
-      gitsigns-nvim
-      conflict-marker-vim
-
       # Treesitter, limited to the languages this editor actually opens
       (nvim-treesitter.withPlugins (p: with p; [
         nix
-        lua
         bash
         yaml
         json
@@ -93,11 +64,6 @@ in { pkgs, settings, categories, name, extra, mkPlugin, ... }@packageDef: {
         ini
         ssh_config
       ]))
-    ];
-
-    # Nix-specific plugins
-    nix-dev = [
-      direnv-vim
     ];
   };
 

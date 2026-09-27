@@ -1,6 +1,6 @@
 return { -- Completion
   'saghen/blink.cmp',
-  enabled = require('nixCatsUtils').enableForCategory('core-plugins'),
+  enabled = require('nixCatsUtils').enableForCategory('general'),
   event = 'InsertEnter',
   opts = {
     keymap = { preset = 'default' },

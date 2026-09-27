@@ -1,6 +1,6 @@
 return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
-  enabled = require('nixCatsUtils').enableForCategory('core-plugins'),
+  enabled = require('nixCatsUtils').enableForCategory('general'),
   event = { 'BufReadPre', 'BufNewFile' },
   build = require('nixCatsUtils').lazyAdd(':TSUpdate'),
   main = 'nvim-treesitter',

@@ -1,18 +1,9 @@
 return {
   'neovim/nvim-lspconfig',
-  enabled = require('nixCatsUtils').enableForCategory('core-plugins'),
+  enabled = require('nixCatsUtils').enableForCategory('general'),
   event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
     { 'j-hui/fidget.nvim', opts = {} },
-    {
-      'folke/lazydev.nvim',
-      ft = 'lua',
-      opts = {
-        library = {
-          { path = (nixCats.nixCatsPath or '') .. '/lua', words = { 'nixCats' } },
-        },
-      },
-    },
   },
   config = function()
     -- blink.cmp registers its own capabilities via vim.lsp.config, so the
@@ -21,24 +12,9 @@ return {
 
     local servers = {
       bashls = {},
-      jsonls = {},
       taplo = {},
       marksman = {},
       yamlls = {},
-      lua_ls = {
-        settings = {
-          Lua = {
-            completion = {
-              callSnippet = 'Replace',
-            },
-            diagnostics = {
-              globals = { 'nixCats' },
-              disable = { 'missing-fields' },
-            },
-          },
-        },
-      },
-      nixd = {},
     }
 
     vim.api.nvim_create_autocmd('LspAttach', {

@@ -61,6 +61,3 @@ vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { noremap = true, si
 
 -- Run helpers
 vim.keymap.set('n', '<leader>m', ':wa<CR>:make<CR>', { noremap = true, silent = true, desc = 'Run make' })
-
--- Git
-vim.keymap.set('n', '<leader>lg', '<cmd>terminal lazygit<CR>', { silent = true, desc = 'Lazygit' })
